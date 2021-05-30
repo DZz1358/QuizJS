@@ -66,11 +66,69 @@ const questions = [
     ],
     rightAnswer: 3,
   },
-
-  
-
+  {
+    question: 'alert( +"Infinity" ); ',
+    options: [
+      'Infinity',
+      'NaN',
+      '0',
+      'Ошибка',
+    ],
+    rightAnswer: 0,
+  },
+  {
+    question: 'Язык JavaScript является подвидом языка Java – верно?',
+    options: [
+      'Да',
+      'Нет',
+      'Наоборот, Java – подвид JavaScript.',
+      'Что такое подвид?',
+    ],
+    rightAnswer: 1,
+  },
+  {
+    question: 'Чему равна сумма 1.15 + 2.30 с точки зрения JavaScript?',
+    options: [
+      '345',
+      '3.45',
+      '3,45',
+      'Ни один из вариантов выше.',
+    ],
+    rightAnswer: 3,
+  },
+  {
+    question: 'Как написать оператор if в JavaScript?',
+    options: [
+      'if (i == 5)',
+      'if i = 5 then',
+      'if i = 5',
+      'if i == 5 then',
+    ],
+    rightAnswer: 0,
+  },
+  {
+    question: 'Как правильно написать массив JavaScript?',
+    options: [
+      'let colors = ["red", "green", "blue"]',
+      'let colors = 1 = ("red"), 2 = ("green"), 3 = ("blue")',
+      'let colors = (1:"red", 2:"green", 3:"blue")',
+      'let colors = "red", "green", "blue"',
+    ],
+    rightAnswer: 0,
+  },
+  {
+    question: 'Как создать функцию на JavaScript?',
+    options: [
+      'function myFunction()',
+      'function = myFunction()',
+      'function:myFunction()',
+      'Нет правильного ответа',
+    ],
+    rightAnswer: 0,
+  },
 ];
 
+// eslint-disable-next-line max-len
 numberOfAllQuestion.innerHTML = questions.length; // выводим количество всех вопросов
 
 const load = () => {
@@ -87,7 +145,7 @@ const load = () => {
   indexOfPage++;
 };
 
-let completedAnswers = [];
+const completedAnswers = [];
 
 const randomQuestion = () => {
   // выбор рандомного числа
@@ -119,37 +177,37 @@ const randomQuestion = () => {
 };
 
 const checkAnswer = el => {
-  if(el.target.dataset.id == questions[indexOfQuestion].rightAnswer){
+  if (el.target.dataset.id == questions[indexOfQuestion].rightAnswer) {
     el.target.classList.add('correct');
     updateAnswerTracker('correct');
     score++;
-  }else {
+  } else {
     el.target.classList.add('wrong');
     updateAnswerTracker('wrong');
   }
   disabledOptions();
-}
+};
 
 const disabledOptions = () => {
   optionElements.forEach(item => {
     item.classList.add('disabled');
-    if(item.dataset.id == questions[indexOfQuestion].rightAnswer){
+    if (item.dataset.id == questions[indexOfQuestion].rightAnswer) {
       item.classList.add('correct');
     }
-  })
+  });
 };
 
 const enableOptions = () => {
   optionElements.forEach(item => {
-    item.classList.remove('disabled', 'correct' , 'wrong');
-  })
+    item.classList.remove('disabled', 'correct', 'wrong');
+  });
 };
 
 const answerTracker = () => {
   questions.forEach(() => {
     const div = document.createElement('div');
     answersTracker.appendChild(div);
-  })
+  });
 };
 
 const updateAnswerTracker = status => {
@@ -157,7 +215,7 @@ const updateAnswerTracker = status => {
 };
 
 const validate = () => {
-  if(!optionElements[0].classList.contains('disabled')){
+  if (!optionElements[0].classList.contains('disabled')) {
     alert('Выберите один из вариантов ответа!');
   } else {
     randomQuestion();
@@ -166,16 +224,15 @@ const validate = () => {
 };
 
 
+btnNext.addEventListener('click', validate);
 
-btnNext.addEventListener('click' , validate);
-
-for(option of optionElements) {
+for (option of optionElements) {
   option.addEventListener('click', e => checkAnswer(e));
 }
 
 
 const quizOver = () => {
-  document.querySelector('.quiz-over-modal').classList.add('active'); 
+  document.querySelector('.quiz-over-modal').classList.add('active');
   correctAnswer.innerHTML = score;
   numberOfAllQuestion2.innerHTML = questions.length;
 };
@@ -184,7 +241,7 @@ const tryAgain = () => {
   window.location.reload();
 };
 
-btnTryAgain.addEventListener('click' , tryAgain);
+btnTryAgain.addEventListener('click', tryAgain);
 
 window.addEventListener('load', () => {
   randomQuestion();
