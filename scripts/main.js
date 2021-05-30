@@ -230,8 +230,19 @@ for (option of optionElements) {
   option.addEventListener('click', e => checkAnswer(e));
 }
 
+function resultMessage (score) {
+  let overResult = document.getElementById('message-result');
+  if (score <= 10) {
+    overResult.innerText = 'Отличный результат !';
+  } else if (score <= 6) {
+    overResult.innerText = 'Хороший результат !';
+  } else if (score <= 2) {
+    overResult.innerText = 'Можно было и лучше !';
+  }
+};
 
 const quizOver = () => {
+  resultMessage(score);
   document.querySelector('.quiz-over-modal').classList.add('active');
   correctAnswer.innerHTML = score;
   numberOfAllQuestion2.innerHTML = questions.length;
